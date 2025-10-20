@@ -1,15 +1,16 @@
-local options = {
-  formatters_by_ft = {
+local nvchad_conform = require "nvchad.configs.conform"
+
+local M = {}
+
+function M.opts(_, opts)
+  local defaults = nvchad_conform()
+  opts = vim.tbl_deep_extend("force", {}, defaults, opts or {})
+
+  opts.formatters_by_ft = vim.tbl_deep_extend("force", {}, defaults.formatters_by_ft or {}, {
     lua = { "stylua" },
-    -- css = { "prettier" },
-    -- html = { "prettier" },
-  },
+  })
 
-  -- format_on_save = {
-  --   -- These options will be passed to conform.format()
-  --   timeout_ms = 500,
-  --   lsp_fallback = true,
-  -- },
-}
+  return opts
+end
 
-return options
+return M
