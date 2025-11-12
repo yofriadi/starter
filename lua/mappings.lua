@@ -8,6 +8,8 @@ map("i", "jk", "<ESC>")
 
 map("n", "Q", "q", { noremap = true, desc = "Record macro" })
 
+map("t", "<C-Space>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+
 -- routes common change/delete motions through the black-hole register: c/ C for normal changes, x/X for character deletes, and s/S for substitutions, all without polluting yank history.
 map("n", "c", '"_c', { desc = "Change without yanking" })
 map("n", "C", '"_C', { desc = "Change line without yanking" })
