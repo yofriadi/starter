@@ -137,7 +137,8 @@ return {
   },
   {
     "saghen/blink.cmp",
-    config = function(_, opts)
+    -- extend NvChad's blink.cmp opts without replacing its config
+    opts = function(_, opts)
       opts.keymap = {
         ["<Tab>"] = {
           "snippet_forward",
