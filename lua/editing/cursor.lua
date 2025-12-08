@@ -20,12 +20,15 @@ return {
   {
     "supermaven-inc/supermaven-nvim",
     config = function()
-      require("supermaven-nvim").setup({})
+      require("supermaven-nvim").setup({
+        disable_inline_completion = true,
+        disable_keymaps = true,
+      })
     end,
     dependencies = {
       {
         "saghen/blink.cmp",
-        dependencies = { "saghen/blink.compat" },
+        dependencies = { "Huijiro/blink-cmp-supermaven" },
         opts = function(_, opts)
           opts.sources = opts.sources or {}
           opts.sources.default = opts.sources.default or {}
@@ -37,8 +40,7 @@ return {
 
           opts.sources.providers.supermaven = {
             name = "supermaven",
-            module = "blink.compat.source",
-            score_offset = 100,
+            module = "blink-cmp-supermaven",
             async = true,
           }
 
