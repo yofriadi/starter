@@ -24,6 +24,7 @@ require("lazy").setup({
 
   { import = "plugins" },
   { import = "editor" },
+  { import = "editing" },
 }, lazy_config)
 
 -- load theme
