@@ -1,5 +1,49 @@
 return {
   {
+    "carbon-steel/detour.nvim",
+    config = function()
+      vim.keymap.set("n", "<C-W><CR>", ":Detour<CR>")
+      vim.keymap.set("n", "<C-W>.", ":DetourCurrentWindow<CR>")
+    end,
+  },
+  {
+    "nvim-focus/focus.nvim",
+    version = "*",
+    opts = {},
+    config = function(_, opts)
+      require("focus").setup(opts)
+
+      local ignore_buftypes = { "nofile", "prompt", "popup" }
+      local ignore_filetypes = { "neo-tree" }
+
+      local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
+
+      vim.api.nvim_create_autocmd("WinEnter", {
+        group = augroup,
+        callback = function(_)
+          if vim.tbl_contains(ignore_buftypes, vim.bo.buftype) then
+            vim.w.focus_disable = true
+          else
+            vim.w.focus_disable = false
+          end
+        end,
+        desc = "Disable focus autoresize for BufType",
+      })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = augroup,
+        callback = function(_)
+          if vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then
+            vim.b.focus_disable = true
+          else
+            vim.b.focus_disable = false
+          end
+        end,
+        desc = "Disable focus autoresize for FileType",
+      })
+    end,
+  },
+  {
     "folke/sidekick.nvim",
     opts = {
       -- add any options here
@@ -136,22 +180,13 @@ return {
     },
   },
   {
-    "saghen/blink.cmp",
-    -- extend NvChad's blink.cmp opts without replacing its config
-    opts = function(_, opts)
-      opts.keymap = {
-        ["<Tab>"] = {
-          "snippet_forward",
-          function() -- sidekick next edit suggestion
-            return require("sidekick").nes_jump_or_apply()
-          end,
-          function() -- if you are using Neovim's native inline completions
-            return vim.lsp.inline_completion.get()
-          end,
-          "fallback",
-        },
-      }
-      return opts
+    "FabijanZulj/blame.nvim",
+    cmd = "BlameToggle",
+    keys = {
+      { "<leader>gB", "<cmd>BlameToggle<cr>", desc = "Blame Toggle" },
+    },
+    config = function()
+      require("blame").setup({})
     end,
   },
 }
