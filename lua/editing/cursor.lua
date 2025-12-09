@@ -18,38 +18,6 @@ return {
     end,
   },
   {
-    "supermaven-inc/supermaven-nvim",
-    config = function()
-      require("supermaven-nvim").setup({
-        disable_inline_completion = true,
-        disable_keymaps = true,
-      })
-    end,
-    dependencies = {
-      {
-        "saghen/blink.cmp",
-        dependencies = { "Huijiro/blink-cmp-supermaven" },
-        opts = function(_, opts)
-          opts.sources = opts.sources or {}
-          opts.sources.default = opts.sources.default or {}
-          opts.sources.providers = opts.sources.providers or {}
-
-          if not vim.tbl_contains(opts.sources.default, "supermaven") then
-            table.insert(opts.sources.default, "supermaven")
-          end
-
-          opts.sources.providers.supermaven = {
-            name = "supermaven",
-            module = "blink-cmp-supermaven",
-            async = true,
-          }
-
-          return opts
-        end,
-      },
-    },
-  },
-  {
     "chrisgrieser/nvim-spider",
     lazy = true,
     keys = {
