@@ -13,4 +13,23 @@ function M.opts(_, opts)
   return opts
 end
 
+function M.on_attach(client, bufnr)
+  require("nvchad.configs.nvim-lspconfig").lsp.on_attach(client, bufnr)
+
+  if client.name == "html" or client.name == "cssls" then
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+  end
+end
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client.name == "tsgo" then
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+    end
+  end,
+})
+
 return M

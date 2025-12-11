@@ -8,6 +8,14 @@ function M.opts(_, opts)
 
   opts.formatters_by_ft = vim.tbl_deep_extend("force", {}, defaults.formatters_by_ft or {}, {
     lua = { "stylua" },
+    css = { "biome" },
+    html = { "biome" },
+    javascript = { "biome" },
+    typescript = { "biome" },
+    javascriptreact = { "biome" },
+    typescriptreact = { "biome" },
+    json = { "biome" },
+    jsonc = { "biome" },
   })
 
   return opts

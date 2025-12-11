@@ -39,12 +39,14 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
-      opts = require("configs.lspconfig").opts(_, opts)
+      local config = require("configs.lspconfig")
+      opts = config.opts(_, opts)
       opts.servers = vim.tbl_deep_extend("force", opts.servers or {}, {
         tsgo = {},
         tailwindcss = {},
-        html = {},
-        cssls = {},
+        html = { on_attach = config.on_attach },
+        cssls = { on_attach = config.on_attach },
+
         jsonls = {},
         emmet_language_server = {},
       })
@@ -55,5 +57,14 @@ return {
     "sohanemon/tsgo.nvim",
     cmd = { "TSGo", "TSGoStop" },
     opts = {},
+  },
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "tailwindcss-language-server",
+        "biome",
+      },
+    },
   },
 }
