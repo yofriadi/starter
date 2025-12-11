@@ -92,6 +92,10 @@ return {
       },
       nes = { enabled = false },
     },
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "sidekick")
+      require("sidekick").setup(opts)
+    end,
     -- stylua: ignore
     keys = {
       {
@@ -153,6 +157,11 @@ return {
       },
       -- below is agent specific shortcuts
       {
+        "<leader>acc",
+        function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end,
+        desc = "Sidekick Toggle Claude",
+      },
+      {
         "<leader>acx",
         function() require("sidekick.cli").toggle({ name = "codex", focus = true }) end,
         desc = "Sidekick Toggle Codex",
@@ -186,7 +195,7 @@ return {
       { "<leader>gB", "<cmd>BlameToggle<cr>", desc = "Blame Toggle" },
     },
     config = function()
-      require("blame").setup({})
+      require("blame").setup {}
     end,
   },
 }

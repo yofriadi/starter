@@ -13,7 +13,6 @@ M.base46 = {
     ["@comment"] = { italic = true },
   },
 }
-
 M.dashboard = { load_on_startup = true }
 M.ui = {
   --tabufline = {
