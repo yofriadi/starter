@@ -1,3 +1,13 @@
+local submit_keys = {
+  -- Optional: custom keymaps for this tool
+  submit = {
+    "<c-s>",
+    function(t)
+      t:send "\n"
+    end,
+  },
+}
+
 return {
   {
     "carbon-steel/detour.nvim",
@@ -27,8 +37,7 @@ return {
       local function apply_focus_disable()
         local bt = vim.bo.buftype
         local ft = vim.bo.filetype
-        local disable = vim.tbl_contains(ignore_buftypes, bt)
-          or vim.tbl_contains(ignore_filetypes, ft)
+        local disable = vim.tbl_contains(ignore_buftypes, bt) or vim.tbl_contains(ignore_filetypes, ft)
 
         vim.w.focus_disable = disable
         vim.b.focus_disable = disable
@@ -62,25 +71,20 @@ return {
         tools = {
           ccr = {
             cmd = { "ccr", "code" },
-            -- Optional: custom keymaps for this tool
             keys = {
-              submit = {
-                "<c-s>",
-                function(t)
-                  t:send "\n"
-                end,
-              },
+              submit = submit_keys,
             },
           },
           coder = {
             cmd = { "coder" },
             keys = {
-              submit = {
-                "<c-s>",
-                function(t)
-                  t:send "\n"
-                end,
-              },
+              submit = submit_keys,
+            },
+          },
+          amp = {
+            cmd = { "amp" },
+            keys = {
+              submit = submit_keys,
             },
           },
         },
@@ -187,6 +191,11 @@ return {
         "<leader>acq",
         function() require("sidekick.cli").toggle({ name = "qwen", focus = true }) end,
         desc = "Sidekick Toggle Qwen",
+      },
+      {
+        "<leader>acm",
+        function() require("sidekick.cli").toggle({ name = "amp", focus = true }) end,
+        desc = "Sidekick Toggle Amp",
       },
     },
   },
