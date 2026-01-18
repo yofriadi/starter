@@ -20,9 +20,20 @@ return {
     "nvim-focus/focus.nvim",
     version = "*",
     event = "VimEnter",
-    opts = {},
+    opts = {
+      commands = false,
+      autoresize = {
+        enable = false,
+      },
+      ui = {
+        number = true, -- Display line numbers in the focused window only
+        --relativenumber = true, -- Display relative line numbers in the focused window only
+        --hybridnumber = true, -- Display hybrid line numbers in the focused window only
+      },
+    },
     config = function(_, opts)
       require("focus").setup(opts)
+      vim.keymap.set("n", "<C-w>f", "<Cmd>FocusToggle<CR>", { desc = "Focus: Toggle autoresize" })
 
       local ignore_buftypes = { "nofile", "prompt", "popup", "terminal" }
       local ignore_filetypes = {
@@ -162,6 +173,11 @@ return {
         desc = "Sidekick Select Prompt",
       },
       -- below is agent specific shortcuts
+      {
+        "<leader>aco",
+        function() require("sidekick.cli").toggle({ name = "opencode", focus = true }) end,
+        desc = "Sidekick Toggle OpenCode",
+      },
       {
         "<leader>acc",
         function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end,
