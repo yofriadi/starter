@@ -98,6 +98,12 @@ return {
               submit = submit_keys,
             },
           },
+          pi = {
+            cmd = { "pi" },
+            keys = {
+              submit = submit_keys,
+            },
+          },
         },
         prompts = {
           refactor = "Please refactor {this} to be more maintainable",
@@ -212,6 +218,11 @@ return {
         "<leader>acm",
         function() require("sidekick.cli").toggle({ name = "amp", focus = true }) end,
         desc = "Sidekick Toggle Amp",
+      },
+      {
+        "<leader>acp",
+        function() require("sidekick.cli").toggle({ name = "pi", focus = true }) end,
+        desc = "Sidekick Toggle Pi",
       },
     },
   },
