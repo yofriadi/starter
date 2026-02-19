@@ -66,7 +66,8 @@ return {
     end,
   },
   {
-    "folke/sidekick.nvim",
+    "yofriadi/sidekick.nvim",
+    branch = "fork/main",
     opts = {
       -- add any options here
       cli = {
@@ -100,6 +101,12 @@ return {
           },
           pi = {
             cmd = { "pi" },
+            keys = {
+              submit = submit_keys,
+            },
+          },
+          omp = {
+            cmd = { "omp" },
             keys = {
               submit = submit_keys,
             },
@@ -220,9 +227,14 @@ return {
         desc = "Sidekick Toggle Amp",
       },
       {
-        "<leader>acp",
+        "<leader>aci",
         function() require("sidekick.cli").toggle({ name = "pi", focus = true }) end,
         desc = "Sidekick Toggle Pi",
+      },
+      {
+        "<leader>acp",
+        function() require("sidekick.cli").toggle({ name = "omp", focus = true }) end,
+        desc = "Sidekick Toggle OMP",
       },
     },
   },
